@@ -216,6 +216,27 @@ k6 login cloud
 k6 cloud k6/smoke-test.js
 ```
 
+### Web Dashboard (Real-time Metrics)
+
+K6 provides a web dashboard for real-time monitoring during test execution:
+
+```bash
+K6_WEB_DASHBOARD=true k6 run k6/smoke-test.js
+K6_WEB_DASHBOARD=true k6 run --env TEST_TYPE=smoke k6/performance-tests.js
+K6_WEB_DASHBOARD=true k6 run --env TEST_TYPE=peak k6/performance-tests.js
+```
+
+The dashboard will be available at `http://localhost:5565` and displays:
+- Real-time VU count and iteration progress
+- Live metrics (response time, throughput, errors)
+- Charts for trends
+- Detailed request breakdown
+
+**Alternative:** Run with both JSON output and dashboard:
+```bash
+k6 run --out json=results.json --out web k6/performance-tests.js
+```
+
 ## Performance Testing Best Practices
 
 1. **Baseline First:** Run a smoke test first to establish a baseline
