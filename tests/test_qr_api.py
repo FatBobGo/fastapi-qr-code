@@ -31,3 +31,19 @@ def test_read_root(client):
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "<!DOCTYPE html>" in response.text
+
+
+def test_get_stats(client):
+    # Initial stats check
+    response = client.get("/stats/")
+    assert response.status_code == 200
+    initial_count = response.json()["total_qr_generated"]
+    assert isinstance(initial_count, int)
+
+    # Generate a QR code
+    payload = {"url": "https://stats-test.com", "box_size": 10}
+    client.post("/qr/generate", json=payload)
+
+    # Check stats incremented
+    response_after = client.get("/stats/")
+    assert response_after.json()["total_qr_generated"] == initial_count + 1

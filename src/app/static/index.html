@@ -276,15 +276,33 @@
         </div>
     </div>
 
+    <div
+        style="position: fixed; bottom: 10px; width: 100%; text-align: center; color: rgba(255,255,255,0.3); font-size: 0.8rem;">
+        Total QR Codes Generated: <span id="stats-count">...</span>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {            
-            const urlInput = document.getElementById('url');
-            urlInput.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') {
-                    generateQR();
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        generateQR();
+                    }
+                });
             });
+            fetchStats();
         });
+
+        async function fetchStats() {
+            try {
+                const response = await fetch('/stats');
+                const data = await response.json();
+                document.getElementById('stats-count').innerText = data.total_qr_generated;
+            } catch (error) {
+                console.error("Failed to fetch stats", error);
+            }
+        }
 
         async function generateQR() {
             const urlInput = document.getElementById('url').value;
@@ -335,6 +353,7 @@
                     img.style.display = 'block';
                     btn.disabled = false;
                     btn.innerText = "Generate QR Code";
+                    fetchStats(); // Update stats after generation
                 };
 
             } catch (error) {
