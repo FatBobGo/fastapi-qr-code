@@ -10,8 +10,15 @@ def generate_qr_code(request: QRRequest) -> io.BytesIO:
     """
     Generates a QR code image based on the request parameters.
     Returns a BytesIO object containing the image data.
+
+    Args:
+        request.url: The URL or data to encode in the QR code.
+        request.box_size: Size of each box in the QR code grid.
+        request.border: Border size around the QR code.
+        request.fill_color: Color of the QR code modules.
+        request.back_color: Background color of the QR code.
     """
-    logger.info(f"Generating QR code for content: {request.url}")
+    logger.info(f"Generating QR code for content: {request.url[:5]}**hidden**")
 
     qr = qrcode.QRCode(
         version=1,
