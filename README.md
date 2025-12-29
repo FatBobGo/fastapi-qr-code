@@ -1,10 +1,11 @@
 # FastAPI QR Code Generator
 
-A production-ready, modular QR Code Generator built with FastAPI and Python.
+A production-ready, modular QR Code Generator built with FastAPI and Python. Includes a premium, glassmorphism-styled UI.
 
 ## Features
 
 - **FastAPI**: High performance, easy to learn, fast to code, ready for production.
+- **Frontend UI**: Built-in glassmorphism-styled Single Page Application (SPA).
 - **Modular Design**: Structured for scalability (core, services, schemas, api).
 - **QR Code Generation**: Generates QR codes from URL or text with customizable options.
 - **Logging**: Modular logging configuration.
@@ -34,7 +35,8 @@ Start the development server:
 uv run uvicorn src.app.main:app --reload
 ```
 
-The API will be available at `http://localhost:8000`.
+- **User Interface**: Open `http://localhost:8000` to use the web-based QR code generator.
+- **API**: The API is available at `http://localhost:8000/api/v1`.
 
 ### API Documentation
 
@@ -42,7 +44,7 @@ Interactive API documentation is available at:
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
-### Generate a QR Code
+### Generate a QR Code (API)
 
 **Endpoint:** `POST /qr/generate`
 
@@ -81,6 +83,8 @@ fastapi-qr-code/
 │       ├── core/       # Core configuration (config, logging)
 │       ├── schemas/    # Pydantic models
 │       ├── services/   # Business logic
+│       ├── static/     # Static files (Frontend UI)
+│       │   └── index.html
 │       └── main.py     # App entry point
 └── tests/              # Unit tests
 ```

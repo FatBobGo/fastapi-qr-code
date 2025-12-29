@@ -24,3 +24,10 @@ def test_generate_qr_code_invalid_params(client):
     }
     response = client.post("/qr/generate", json=payload)
     assert response.status_code == 422
+
+
+def test_read_root(client):
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "<!DOCTYPE html>" in response.text
