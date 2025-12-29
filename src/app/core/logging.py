@@ -1,7 +1,7 @@
 import logging
 import sys
 from functools import lru_cache
-from logging.handlers import RotatingFileHandler
+from logging.handlers import TimedRotatingFileHandler
 import os
 
 # Create a logs directory if it doesn't exist
@@ -27,10 +27,15 @@ def get_logger(name: str):
         stream_handler.setFormatter(stream_formatter)
         logger.addHandler(stream_handler)
 
-        # Rotating file handler for file output
-        file_handler = RotatingFileHandler(
-            log_file, maxBytes=1024 * 1024 * 5, backupCount=5  # 5 MB
+        # Timed rotating file handler that appends the date to rotated files
+        # Rotates at midnight and keeps 3 backups by default
+        file_handler = TimedRotatingFileHandler(
+            log_file, when='midnight', interval=1, backupCount=3, 
+            utc=False # use the process/system local time.
         )
+        # Use a date-based suffix for rotated files (e.g., qr_app.log.2025-12-29)
+        file_handler.suffix = "%Y-%m-%d"
+
         file_formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
