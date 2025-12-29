@@ -3,7 +3,7 @@ import os
 from src.app.core.logging import get_logger
 
 logger = get_logger(__name__)
-DB_NAME = "stats.db"
+DB_NAME = "database/stats.db"
 
 
 def get_db_connection():

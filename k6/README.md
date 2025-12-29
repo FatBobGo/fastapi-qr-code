@@ -226,6 +226,12 @@ K6_WEB_DASHBOARD=true k6 run --env TEST_TYPE=smoke k6/performance-tests.js
 K6_WEB_DASHBOARD=true k6 run --env TEST_TYPE=peak k6/performance-tests.js
 ```
 
+Another single file sample:
+
+```bash
+K6_WEB_DASHBOARD=true SCENARIO=smoke k6 run k6/performance-tests-single-file.js       
+```
+
 The dashboard will be available at `http://localhost:5565` and displays:
 - Real-time VU count and iteration progress
 - Live metrics (response time, throughput, errors)
